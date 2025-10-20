@@ -1,141 +1,91 @@
-import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Eye Lounge | Coming Soon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@400;600&display=swap');
 
-export default function EyeLoungeComingSoon() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #e6e6e6 0%, #f9f9f9 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: 'Montserrat', sans-serif;
+      color: #1a1a1a;
+      letter-spacing: 1px;
+    }
 
-  const { scrollY } = useScroll();
-  const ySky = useTransform(scrollY, [0, 600], [0, -60]);
-  const yTint = useTransform(scrollY, [0, 600], [0, -30]);
+    .overlay {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+    h1 {
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      margin: 0;
+      font-weight: 700;
+    }
 
-  return (
-    <div className="min-h-screen bg-[#f8f5f2] text-[#3e2c1b] relative overflow-hidden">
-      {/* Background with dynamic motion */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,72,37,0.18),transparent_60%)]"
-          style={{ y: yTint }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(248,245,242,0.94),rgba(248,245,242,0.98))]" />
-      </div>
+    h2 {
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      margin: 10px 0 30px 0;
+      font-weight: 400;
+    }
 
-      {/* Header */}
-      <header className="px-6 sm:px-10 py-6 flex items-center justify-between">
-        <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="select-none">
-          <span className="tracking-[0.35em] text-xs uppercase text-[#a27d5c]">Miami</span>
-        </motion.div>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-[#a27d5c]">
-          <a href="#press" className="hover:text-[#3e2c1b] transition">Press</a>
-          <a href="#contact" className="hover:text-[#3e2c1b] transition">Contact</a>
-          <a href="#visit" className="hover:text-[#3e2c1b] transition">Visit</a>
-        </nav>
-      </header>
+    .coming-soon {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      letter-spacing: 3px;
+      line-height: 1.1;
+      font-weight: 400;
+      border-top: 2px solid #1a1a1a;
+      border-bottom: 2px solid #1a1a1a;
+      display: inline-block;
+      padding: 20px 0;
+    }
 
-      {/* Hero */}
-      <main className="px-6 sm:px-10">
-        <section className="max-w-6xl mx-auto pt-12 sm:pt-20 pb-14 sm:pb-24">
-          <motion.h1
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl leading-[0.95] font-light tracking-tight"
-            style={{ fontFamily: "Didot, Bodoni, 'Libre Baskerville', 'Playfair Display', Garamond, serif" }}
-          >
-            Eye Lounge
-          </motion.h1>
+    .tagline {
+      font-size: 0.9rem;
+      margin-top: 30px;
+      letter-spacing: 3px;
+    }
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-5 text-lg sm:text-xl text-[#6e5842] max-w-2xl"
-          >
-            A high-end optical boutique with on-site eye care. Curated frames, expert fittings, and comprehensive exams—under one roof in the heart of Miami.
-          </motion.p>
+    .url {
+      margin-top: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: lowercase;
+    }
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-10"
-          >
-            <span className="text-sm tracking-widest uppercase text-[#a27d5c]">Coming Soon</span>
-            <div className="mt-5 grid sm:grid-cols-[1fr_auto] gap-3 sm:gap-4 max-w-xl">
-              {!submitted ? (
-                <form onSubmit={handleSubmit} className="flex gap-3 sm:gap-4">
-                  <input
-                    type="email"
-                    required
-                    placeholder="Join the list for early access"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-2xl border border-[#d4bfa6] bg-[#fff8f2]/80 backdrop-blur px-5 py-3 outline-none focus:ring-2 focus:ring-[#a27d5c]/30 placeholder:text-[#bfa88d] text-[#3e2c1b]"
-                    aria-label="Email address"
-                  />
-                  <button
-                    type="submit"
-                    className="whitespace-nowrap rounded-2xl px-6 py-3 border border-[#3e2c1b] bg-[#3e2c1b] text-[#f8f5f2] hover:bg-[#5a3b24] transition shadow-sm"
-                  >
-                    Notify Me
-                  </button>
-                </form>
-              ) : (
-                <div className="rounded-2xl border border-[#d4bfa6] bg-[#fff8f2]/80 backdrop-blur px-5 py-3 text-[#5a3b24]">
-                  Thanks—you're on the list. We'll be in touch before we open.
-                </div>
-              )}
-            </div>
-            <p className="mt-3 text-xs text-[#a27d5c]">We respect your inbox. No spam—ever.</p>
-          </motion.div>
-        </section>
+    @media (max-width: 600px) {
+      .coming-soon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>THE EYE LOUNGE</h1>
+    <h2>LUXURY FAMILY EYECARE</h2>
+    <div class="coming-soon">COMING<br>SOON</div>
+    <div class="tagline">EXPERIENCE THE FUTURE OF OPTOMETRY</div>
+    <div class="url">eyeloungemiami.com</div>
+  </div>
+</body>
+</html>
 
-        {/* Feature strip */}
-        <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 pb-16">
-          {[
-            { title: "Curated Luxury Frames", desc: "Independent and heritage maisons, limited releases, and bespoke styling." },
-            { title: "On-Site Eye Doctor", desc: "Comprehensive eye exams and medical eye care with state-of-the-art diagnostics." },
-            { title: "Precision Fitting", desc: "Custom lens design and meticulous adjustments for all-day comfort." },
-          ].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.05 }} className="rounded-3xl border border-[#d4bfa6] bg-[#fff8f2]/80 backdrop-blur p-6 shadow-sm">
-              <h3 className="text-base font-medium tracking-tight text-[#3e2c1b]">{item.title}</h3>
-              <p className="mt-2 text-sm text-[#6e5842]">{item.desc}</p>
-            </motion.div>
-          ))}
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer id="contact" className="px-6 sm:px-10 py-10 border-t border-[#d4bfa6]/70 relative z-10">
-        <div className="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 items-end">
-          <div>
-            <h4 className="text-sm tracking-widest uppercase text-[#a27d5c]">Visit</h4>
-            <p id="visit" className="mt-2 text-[#3e2c1b]">Miami, Florida</p>
-            <p className="text-[#a27d5c] text-sm"></p>
-          </div>
-          <div className="sm:text-right">
-            <a href="mailto:hello@eyelounge.miami" className="text-[#3e2c1b] hover:opacity-70 transition">hello@eyeloungemiami.com</a>
-            <p className="text-[#a27d5c] text-sm mt-1">@eye.lounge.miami (IG)</p>
-          </div>
-        </div>
-        <div className="max-w-6xl mx-auto mt-10 text-xs text-[#a27d5c] flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Eye Lounge</span>
-          <span></span>
-        </div>
-      </footer>
-
-      {/* Mobile nav hint */}
-      <div className="md:hidden fixed bottom-4 inset-x-0 px-6">
-        <div className="mx-auto max-w-md rounded-2xl border border-[#d4bfa6] bg-[#fff8f2]/90 backdrop-blur px-4 py-2 text-[11px] text-[#6e5842] shadow-sm text-center">
-          Eye Lounge — luxury optical & eye care. Opening soon in Miami.
-        </div>
-      </div>
-    </div>
-  );
-}
 Add index.html
