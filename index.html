@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Eye Lounge | Coming Soon</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500&display=swap');
 
     body {
       margin: 0;
@@ -14,35 +14,36 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: linear-gradient(135deg, #e6e6e6 0%, #f9f9f9 100%);
-      background-size: cover;
-      background-repeat: no-repeat;
+      background: radial-gradient(circle at top left, #2b2b2b, #111);
+      color: #f8f8f8;
       font-family: 'Montserrat', sans-serif;
-      color: #1a1a1a;
       letter-spacing: 1px;
+      overflow: hidden;
     }
 
     .overlay {
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 60px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 60px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
       font-size: 1.2rem;
       letter-spacing: 4px;
       margin: 0;
-      font-weight: 700;
+      font-weight: 600;
+      color: #d4af37;
     }
 
     h2 {
       font-size: 0.8rem;
       letter-spacing: 4px;
       margin: 10px 0 30px 0;
-      font-weight: 400;
+      font-weight: 300;
+      color: #e0e0e0;
     }
 
     .coming-soon {
@@ -51,8 +52,9 @@
       letter-spacing: 3px;
       line-height: 1.1;
       font-weight: 400;
-      border-top: 2px solid #1a1a1a;
-      border-bottom: 2px solid #1a1a1a;
+      color: #f8f8f8;
+      border-top: 1px solid #d4af37;
+      border-bottom: 1px solid #d4af37;
       display: inline-block;
       padding: 20px 0;
     }
@@ -61,18 +63,68 @@
       font-size: 0.9rem;
       margin-top: 30px;
       letter-spacing: 3px;
+      color: #ccc;
     }
 
-    .url {
-      margin-top: 15px;
-      font-weight: 600;
+    form {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    input[type="email"] {
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: 1px solid #d4af37;
+      background: transparent;
+      color: #f8f8f8;
+      font-size: 0.9rem;
+      min-width: 250px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="email"]:focus {
+      border-color: #f8f8f8;
+      background: rgba(255,255,255,0.05);
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: #d4af37;
+      color: #111;
+      font-size: 0.9rem;
+      font-weight: 500;
       letter-spacing: 2px;
-      text-transform: lowercase;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b8962b;
+      color: #fff;
+    }
+
+    .success-message {
+      margin-top: 15px;
+      color: #d4af37;
+      font-size: 0.9rem;
+      display: none;
     }
 
     @media (max-width: 600px) {
       .coming-soon {
         font-size: 3rem;
+      }
+      form {
+        flex-direction: column;
+      }
+      input[type="email"], button {
+        width: 100%;
       }
     }
   </style>
@@ -83,7 +135,33 @@
     <h2>LUXURY FAMILY EYECARE</h2>
     <div class="coming-soon">COMING<br>SOON</div>
     <div class="tagline">EXPERIENCE THE FUTURE OF OPTOMETRY</div>
-    <div class="url">eyeloungemiami.com</div>
+
+    <form id="signup-form" action="https://formspree.io/f/xzzjqyay" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">JOIN MAILING LIST</button>
+    </form>
+    <div class="success-message" id="success-message">
+      Thank you for subscribing!
+    </div>
   </div>
+
+  <script>
+    const form = document.getElementById('signup-form');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.reset();
+        successMessage.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
